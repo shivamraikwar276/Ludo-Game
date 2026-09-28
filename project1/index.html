@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ludo-Shivam</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-classic">
+
+<!-- START SCREEN -->
+<section id="startScreen" class="screen">
+  <div class="card start-card">
+    <h1 class="logo">LUDO <span>SHIVAM</span></h1>
+    <p class="tagline">Roll. Race. Rule the board.</p>
+
+    <h3 class="label">Quick Play</h3>
+    <div class="pill-row" id="modeRow">
+      <button class="pill" data-mode="2">2 Players</button>
+      <button class="pill" data-mode="3">3 Players</button>
+      <button class="pill active" data-mode="4">4 Players</button>
+      <button class="pill" data-mode="vs">vs Computer</button>
+    </div>
+
+    <h3 class="label">Players</h3>
+    <div class="seat-grid" id="seatGrid">
+      <div class="seat"><span class="dot red"></span><b>Red</b>
+        <select data-color="red"><option value="human">Human</option><option value="ai">Computer</option><option value="off">Off</option></select></div>
+      <div class="seat"><span class="dot green"></span><b>Green</b>
+        <select data-color="green"><option value="ai">Computer</option><option value="human">Human</option><option value="off">Off</option></select></div>
+      <div class="seat"><span class="dot yellow"></span><b>Yellow</b>
+        <select data-color="yellow"><option value="ai">Computer</option><option value="human">Human</option><option value="off">Off</option></select></div>
+      <div class="seat"><span class="dot blue"></span><b>Blue</b>
+        <select data-color="blue"><option value="ai">Computer</option><option value="human">Human</option><option value="off">Off</option></select></div>
+    </div>
+
+    <h3 class="label">Computer Difficulty</h3>
+    <div class="pill-row" id="diffRow">
+      <button class="pill" data-diff="easy">Easy</button>
+      <button class="pill active" data-diff="medium">Medium</button>
+      <button class="pill" data-diff="hard">Hard</button>
+    </div>
+
+    <div class="toggle-row">
+      <label><input type="checkbox" class="tg-sound" checked> 🔊 Sound</label>
+      <label><input type="checkbox" class="tg-music"> 🎵 Music</label>
+    </div>
+
+    <div class="btn-row">
+      <button id="playBtn" class="btn primary">▶ Play</button>
+      <button id="resumeBtn" class="btn secondary hidden">⏪ Resume Game</button>
+    </div>
+    <div class="btn-row small">
+      <button id="rulesBtn" class="btn ghost">📖 Rules</button>
+      <button id="settingsBtn" class="btn ghost">⚙ Settings</button>
+    </div>
+  </div>
+</section>
+
+<!-- GAME SCREEN -->
+<section id="gameScreen" class="screen hidden">
+  <div class="game-wrap">
+    <header class="hud">
+      <div class="hud-title">LUDO <span>SHIVAM</span></div>
+      <div class="hud-actions">
+        <button id="settingsBtn2" class="icon-btn" aria-label="Settings">⚙</button>
+        <button id="menuBtn" class="icon-btn" aria-label="Main menu">🏠</button>
+      </div>
+    </header>
+    <div class="panel-row" id="panelTop"></div>
+    <div class="board-wrap"><div id="board" class="board" aria-label="Ludo board"></div></div>
+    <div class="panel-row" id="panelBottom"></div>
+  </div>
+</section>
+<div id="msgLine" class="msg-line" aria-live="polite"></div>
+
+<!-- WIN SCREEN -->
+<section id="winScreen" class="screen hidden">
+  <div class="card win-card">
+    <div class="trophy">🏆</div>
+    <h1 id="winTitle">RED WINS!</h1>
+    <p id="winSub" class="tagline">4/4 Tokens Home</p>
+    <div id="ranking" class="ranking"></div>
+    <div class="btn-row">
+      <button id="againBtn" class="btn primary">Play Again</button>
+      <button id="menuBtn2" class="btn secondary">Main Menu</button>
+    </div>
+  </div>
+</section>
+
+<!-- RULES -->
+<div id="rulesModal" class="modal-back hidden">
+  <div class="modal card">
+    <button class="x" data-close="rulesModal" aria-label="Close">✕</button>
+    <h2>How to Play</h2>
+    <ol class="rules">
+      <li><b>Start:</b> Pick Human or Computer for each colour and press Play.</li>
+      <li><b>Dice:</b> Tap the dice or the Roll button to get 1 to 6.</li>
+      <li><b>Leaving home:</b> A token leaves base only on a 6.</li>
+      <li><b>Moving:</b> Tap a glowing token to move it exactly the dice value.</li>
+      <li><b>Capturing:</b> Landing on a rival token (outside safe cells) sends it home and gives you another turn.</li>
+      <li><b>Safe cells:</b> Star cells and coloured start cells protect tokens.</li>
+      <li><b>Rolling 6:</b> You roll again. Three sixes in a row cancel your turn.</li>
+      <li><b>Reaching home:</b> A token needs the exact number to enter the centre. It gives you another turn.</li>
+      <li><b>Winning:</b> First player to bring all 4 tokens home wins.</li>
+    </ol>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div id="settingsModal" class="modal-back hidden">
+  <div class="modal card">
+    <button class="x" data-close="settingsModal" aria-label="Close">✕</button>
+    <h2>Settings</h2>
+    <label class="row"><input type="checkbox" class="tg-sound" checked> 🔊 Sound effects</label>
+    <label class="row"><input type="checkbox" class="tg-music"> 🎵 Music</label>
+    <label class="row"><input type="checkbox" id="tgAnim" checked> ✨ Animations</label>
+    <label class="row"><input type="checkbox" id="tgMsgs" checked> 💬 Game messages</label>
+    <label class="row">Difficulty
+      <select id="setDiff"><option value="easy">Easy</option><option value="medium" selected>Medium</option><option value="hard">Hard</option></select></label>
+    <label class="row">Board theme
+      <select id="setTheme"><option value="classic">Classic</option><option value="dark">Dark</option></select></label>
+    <button id="clearSaveBtn" class="btn ghost wide">Clear saved game</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
